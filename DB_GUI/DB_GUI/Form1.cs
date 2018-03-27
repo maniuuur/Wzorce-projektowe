@@ -15,6 +15,18 @@ namespace DB_GUI
         public Form1()
         {
             InitializeComponent();
+
+            ListViewItem lvi = new ListViewItem();
+            lvi.SubItems.Add("s");
+            lvi.SubItems.Add("");
+            lvi.SubItems.Add("dasd");
+
+            listView1.Items.Add(lvi);
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
