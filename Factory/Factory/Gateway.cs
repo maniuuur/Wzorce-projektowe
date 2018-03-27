@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Factory
 {
-    interface Gateway
+    public interface Gateway
     {
         String addItem(String item);
         String deleteItem(int indicator);

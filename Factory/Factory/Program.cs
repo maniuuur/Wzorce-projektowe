@@ -14,7 +14,7 @@ namespace Factory
 
             try
             {
-                factory = Factory.getObject("Products");
+                factory = Factory.createObject("Products");
 
                 factory.addItem("Rower");
                 factory.addItem("Skuter");
