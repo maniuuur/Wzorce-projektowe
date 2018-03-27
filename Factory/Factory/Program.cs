@@ -10,6 +10,29 @@ namespace Factory
     {
         static void Main(string[] args)
         {
+            Gateway factory = null;
+
+            try
+            {
+                factory = Factory.getObject("Products");
+
+                factory.addItem("Rower");
+                factory.addItem("Skuter");
+                factory.addItem("Quad");
+                factory.addItem("Hulajnoga");
+
+                Console.WriteLine(factory.listItems());
+
+                factory.sortItems(1);
+                Console.WriteLine(factory.listItems());
+            }
+
+            catch ( Exception ex )
+            {
+                Console.WriteLine("Błąd! " + ex.ToString());
+            }
+
+            Console.ReadLine();
         }
     }
 }
