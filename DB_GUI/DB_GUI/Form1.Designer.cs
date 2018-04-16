@@ -28,53 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.lv = new System.Windows.Forms.ListView();
+            this.comboBox = new System.Windows.Forms.ComboBox();
             this.DelButton = new System.Windows.Forms.Button();
-            this.GetButton = new System.Windows.Forms.Button();
             this.SortButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
             this.ConnectButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listView1
+            // lv
             // 
-            this.listView1.Location = new System.Drawing.Point(221, 36);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(140, 263);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.lv.Location = new System.Drawing.Point(221, 72);
+            this.lv.Name = "lv";
+            this.lv.Size = new System.Drawing.Size(186, 227);
+            this.lv.TabIndex = 0;
+            this.lv.UseCompatibleStateImageBehavior = false;
+            this.lv.SelectedIndexChanged += new System.EventHandler(this.lv_SelectedIndexChanged);
             // 
-            // comboBox1
+            // comboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(378, 36);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 1;
+            this.comboBox.FormattingEnabled = true;
+            this.comboBox.Location = new System.Drawing.Point(413, 24);
+            this.comboBox.Name = "comboBox";
+            this.comboBox.Size = new System.Drawing.Size(121, 21);
+            this.comboBox.TabIndex = 1;
             // 
             // DelButton
             // 
-            this.DelButton.Location = new System.Drawing.Point(378, 163);
+            this.DelButton.Location = new System.Drawing.Point(413, 111);
             this.DelButton.Name = "DelButton";
             this.DelButton.Size = new System.Drawing.Size(121, 33);
             this.DelButton.TabIndex = 3;
             this.DelButton.Text = "Del";
             this.DelButton.UseVisualStyleBackColor = true;
             // 
-            // GetButton
-            // 
-            this.GetButton.Location = new System.Drawing.Point(378, 202);
-            this.GetButton.Name = "GetButton";
-            this.GetButton.Size = new System.Drawing.Size(121, 32);
-            this.GetButton.TabIndex = 4;
-            this.GetButton.Text = "Get";
-            this.GetButton.UseVisualStyleBackColor = true;
-            // 
             // SortButton
             // 
-            this.SortButton.Location = new System.Drawing.Point(378, 240);
+            this.SortButton.Location = new System.Drawing.Point(413, 150);
             this.SortButton.Name = "SortButton";
             this.SortButton.Size = new System.Drawing.Size(121, 33);
             this.SortButton.TabIndex = 5;
@@ -83,7 +73,7 @@
             // 
             // AddButton
             // 
-            this.AddButton.Location = new System.Drawing.Point(378, 124);
+            this.AddButton.Location = new System.Drawing.Point(413, 72);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(121, 33);
             this.AddButton.TabIndex = 6;
@@ -92,9 +82,9 @@
             // 
             // ConnectButton
             // 
-            this.ConnectButton.Location = new System.Drawing.Point(378, 63);
+            this.ConnectButton.Location = new System.Drawing.Point(221, 24);
             this.ConnectButton.Name = "ConnectButton";
-            this.ConnectButton.Size = new System.Drawing.Size(121, 33);
+            this.ConnectButton.Size = new System.Drawing.Size(186, 33);
             this.ConnectButton.TabIndex = 7;
             this.ConnectButton.Text = "Connect";
             this.ConnectButton.UseVisualStyleBackColor = true;
@@ -108,10 +98,9 @@
             this.Controls.Add(this.ConnectButton);
             this.Controls.Add(this.AddButton);
             this.Controls.Add(this.SortButton);
-            this.Controls.Add(this.GetButton);
             this.Controls.Add(this.DelButton);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.comboBox);
+            this.Controls.Add(this.lv);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -120,10 +109,9 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ListView lv;
+        private System.Windows.Forms.ComboBox comboBox;
         private System.Windows.Forms.Button DelButton;
-        private System.Windows.Forms.Button GetButton;
         private System.Windows.Forms.Button SortButton;
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.Button ConnectButton;
