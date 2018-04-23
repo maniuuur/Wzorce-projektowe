@@ -13,34 +13,61 @@ namespace DB_GUI
 {
     public partial class Form1 : Form
     {
+        DBconnect linker = new DBconnect();
+
         public Form1()
         {
             InitializeComponent();
+        
+            ipTB.Text = "127.0.0.1";
+            portTB.Text = "3306";
+            usernameTB.Text = "root";
+            dbTB.Text = "test";
 
+            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             lv.View = View.Details;
             lv.FullRowSelect = true;
+            pwTB.UseSystemPasswordChar = true;
+
+            addButton.Enabled = false;
+            delButton.Enabled = false;
+            editButton.Enabled = false;
+            sortButton.Enabled = false;
         }
 
         private void lv_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (lv.SelectedItems.Count == 0)
+            {
+                delButton.Enabled = false;
+                editButton.Enabled = false;
+            }
+            else if (lv.SelectedItems.Count == 1)
+            {
+                delButton.Enabled = true;
+                editButton.Enabled = true;
+            }
+            else
+            {
+                delButton.Enabled = true;
+                editButton.Enabled = false;
+            }
         }
 
         private void getDataFromDb()
         {
-            string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=test";
-                                      
+            linker.setData(ipTB.Text, portTB.Text, usernameTB.Text, pwTB.Text, dbTB.Text);
 
-            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+            comboBox.Items.Clear();
 
             try
             {
-                databaseConnection.Open();
+                linker.Open();
+                comboBox.Items.AddRange(linker.getTableNames().ToArray());
+                linker.Close();
 
-                getTableNames(databaseConnection);
-                getDataIntoLv(databaseConnection);
-
-                databaseConnection.Close();
+                if (comboBox.Items.Count > 0)
+                    comboBox.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -48,62 +75,135 @@ namespace DB_GUI
             }
         }
 
-        private void getTableNames(MySqlConnection databaseConnection)
+        private void getDataIntoLV()
         {
-            string query = "SELECT table_name FROM information_schema.tables where table_schema = 'test'";
-            MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
-            commandDatabase.CommandTimeout = 60;
+            lv.Columns.Clear();
+            lv.Items.Clear();
 
-            MySqlDataReader reader;
-            reader = commandDatabase.ExecuteReader();
-            comboBox.Items.Clear();
+            foreach (string listItem in linker.getColumnsName(comboBox.SelectedItem.ToString()))
+            {     
+                lv.Columns.Add(listItem, -2, HorizontalAlignment.Left);
+            }
+            foreach (string[] item in linker.getData(comboBox.SelectedItem.ToString()))
+            {
+                lv.Items.Add(new ListViewItem(item));
+            }
 
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    comboBox.Items.Add(reader.GetString(0));
-                }
-                comboBox.SelectedIndex = 0;
-            }
-            else
-            {
-                MessageBox.Show("Brak tabel w bazie");
-            }
-            reader.Close();
+            lv.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            lv.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
         }
 
-        private void getDataIntoLv(MySqlConnection databaseConnection)
+        private void add()
         {
-            string query = "SELECT * FROM users";
-            MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
-            commandDatabase.CommandTimeout = 60;
-            MySqlDataReader reader;
-            reader = commandDatabase.ExecuteReader();
-            lv.Items.Clear();
-            lv.Columns.Add("ID", 25, HorizontalAlignment.Left);
-            lv.Columns.Add("First Name", 60, HorizontalAlignment.Left);
-            lv.Columns.Add("Last Name", 60, HorizontalAlignment.Left);
+            //lv.Columns.Count.ToString();
+        }
 
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {            
-                    string[] row = { reader.GetInt32(0).ToString(), reader.GetString(1), reader.GetString(2) };
-                    var listViewItem = new ListViewItem(row);
-                    lv.Items.Add(listViewItem);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Brak danych");
-            }
-            reader.Close();
+        private void connectButton_Click(object sender, EventArgs e)
+        {
+            getDataFromDb();
+        }
+
+        private void comboBox_SelectedIndexChange(object sender, EventArgs e)
+        {
+            linker.Open();
+            getDataIntoLV();
+            linker.Close();
         }
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
             getDataFromDb();
+        }
+
+        private void ipTB_Enter(object sender, EventArgs e)
+        {
+            if (ipTB.Text == "IP Address")
+            {
+                ipTB.Text = "";
+                ipTB.ForeColor = Color.Black;
+            }
+        }
+
+        private void ipTB_Leave(object sender, EventArgs e)
+        {
+            if (ipTB.Text == "")
+            {
+                ipTB.Text = "IP Address";
+                ipTB.ForeColor = Color.Gray;
+            }
+        }
+
+        private void portTB_Enter(object sender, EventArgs e)
+        {
+            if (portTB.Text == "Port number")
+            {
+                portTB.Text = "";
+                portTB.ForeColor = Color.Black;
+            }
+        }
+
+        private void portTB_Leave(object sender, EventArgs e)
+        {
+            if (portTB.Text == "")
+            {
+                portTB.Text = "Port number";
+                portTB.ForeColor = Color.Gray;
+            }
+        }
+
+        private void usernameTB_Enter(object sender, EventArgs e)
+        {
+            if (usernameTB.Text == "Username")
+            {
+                usernameTB.Text = "";
+                usernameTB.ForeColor = Color.Black;
+            }
+        }
+
+        private void usernameTB_Leave(object sender, EventArgs e)
+        {
+            if (usernameTB.Text == "")
+            {
+                usernameTB.Text = "Username";
+                usernameTB.ForeColor = Color.Gray;
+            }
+        }
+
+        private void pwTB_Enter(object sender, EventArgs e)
+        {
+            if (pwTB.Text == "password")
+            {
+                pwTB.Text = "";
+                pwTB.ForeColor = Color.Black;
+            }
+        }
+
+        private void pwTB_Leave(object sender, EventArgs e)
+        {    
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            pwTB.Text = "password";
+        }
+
+        private void dbTB_Enter(object sender, EventArgs e)
+        {
+            if (dbTB.Text == "DB Name")
+            {
+                dbTB.Text = "";
+                dbTB.ForeColor = Color.Black;
+            }
+        }
+
+        private void dbTB_Leave(object sender, EventArgs e)
+        {
+            if (dbTB.Text == "")
+            {
+                dbTB.Text = "DB Name";
+                dbTB.ForeColor = Color.Gray;
+            }
         }
     }
 }
