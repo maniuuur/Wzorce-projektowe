@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.lv = new System.Windows.Forms.ListView();
-            this.comboBox = new System.Windows.Forms.ComboBox();
+            this.dropdownList = new System.Windows.Forms.ComboBox();
             this.delButton = new System.Windows.Forms.Button();
             this.sortButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
@@ -53,14 +53,15 @@
             this.lv.UseCompatibleStateImageBehavior = false;
             this.lv.SelectedIndexChanged += new System.EventHandler(this.Lv_SelectedIndexChanged);
             // 
-            // comboBox
+            // dropdownList
             // 
-            this.comboBox.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.comboBox.FormattingEnabled = true;
-            this.comboBox.Location = new System.Drawing.Point(459, 35);
-            this.comboBox.Name = "comboBox";
-            this.comboBox.Size = new System.Drawing.Size(121, 21);
-            this.comboBox.TabIndex = 1;
+            this.dropdownList.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.dropdownList.FormattingEnabled = true;
+            this.dropdownList.Location = new System.Drawing.Point(459, 35);
+            this.dropdownList.Name = "dropdownList";
+            this.dropdownList.Size = new System.Drawing.Size(121, 21);
+            this.dropdownList.TabIndex = 1;
+            this.dropdownList.SelectedIndexChanged += new System.EventHandler(this.dropdownList_SelectedIndexChanged);
             // 
             // delButton
             // 
@@ -187,7 +188,7 @@
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.sortButton);
             this.Controls.Add(this.delButton);
-            this.Controls.Add(this.comboBox);
+            this.Controls.Add(this.dropdownList);
             this.Controls.Add(this.lv);
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "Form1";
@@ -200,7 +201,7 @@
         #endregion
 
         private System.Windows.Forms.ListView lv;
-        private System.Windows.Forms.ComboBox comboBox;
+        private System.Windows.Forms.ComboBox dropdownList;
         private System.Windows.Forms.Button delButton;
         private System.Windows.Forms.Button sortButton;
         private System.Windows.Forms.Button addButton;

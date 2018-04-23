@@ -24,7 +24,7 @@ namespace DB_GUI
             usernameTB.Text = "root";
             dbTB.Text = "test";
 
-            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            dropdownList.DropDownStyle = ComboBoxStyle.DropDownList;
             lv.View = View.Details;
             lv.FullRowSelect = true;
             pwTB.UseSystemPasswordChar = true;
@@ -58,16 +58,16 @@ namespace DB_GUI
         {
             linker.SetData(ipTB.Text, portTB.Text, usernameTB.Text, pwTB.Text, dbTB.Text);
 
-            comboBox.Items.Clear();
+            dropdownList.Items.Clear();
 
             try
             {
                 linker.Open();
-                comboBox.Items.AddRange(linker.GetTables().ToArray());
+                dropdownList.Items.AddRange(linker.GetTables().ToArray());
                 linker.Close();
 
-                if (comboBox.Items.Count > 0)
-                    comboBox.SelectedIndex = 0;
+                if (dropdownList.Items.Count > 0)
+                    dropdownList.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -80,11 +80,11 @@ namespace DB_GUI
             lv.Columns.Clear();
             lv.Items.Clear();
 
-            foreach (string listItem in linker.GetColumnsName(comboBox.SelectedItem.ToString()))
+            foreach (string listItem in linker.GetColumnsName(dropdownList.SelectedItem.ToString()))
             {     
                 lv.Columns.Add(listItem, -2, HorizontalAlignment.Left);
             }
-            foreach (string[] item in linker.GetData(comboBox.SelectedItem.ToString()))
+            foreach (string[] item in linker.GetData(dropdownList.SelectedItem.ToString()))
             {
                 lv.Items.Add(new ListViewItem(item));
             }
@@ -100,13 +100,6 @@ namespace DB_GUI
         }
 
         private void ConnectButton_Click(object sender, EventArgs e) => GetDataFromDb();
-
-        private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            linker.Open();
-            GetDataIntoLV();
-            linker.Close();
-        }
 
         private void connectButton_Click(object sender, EventArgs e) => GetDataFromDb();
 
@@ -195,6 +188,13 @@ namespace DB_GUI
                 dbTB.Text = "DB Name";
                 dbTB.ForeColor = Color.Gray;
             }
+        }
+
+        private void dropdownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            linker.Open();
+            GetDataIntoLV();
+            linker.Close();
         }
     }
 }
