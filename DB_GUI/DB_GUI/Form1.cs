@@ -35,7 +35,7 @@ namespace DB_GUI
             sortButton.Enabled = false;
         }
 
-        private void lv_SelectedIndexChanged(object sender, EventArgs e)
+        private void Lv_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lv.SelectedItems.Count == 0)
             {
@@ -54,16 +54,16 @@ namespace DB_GUI
             }
         }
 
-        private void getDataFromDb()
+        private void GetDataFromDb()
         {
-            linker.setData(ipTB.Text, portTB.Text, usernameTB.Text, pwTB.Text, dbTB.Text);
+            linker.SetData(ipTB.Text, portTB.Text, usernameTB.Text, pwTB.Text, dbTB.Text);
 
             comboBox.Items.Clear();
 
             try
             {
                 linker.Open();
-                comboBox.Items.AddRange(linker.getTableNames().ToArray());
+                comboBox.Items.AddRange(linker.GetTables().ToArray());
                 linker.Close();
 
                 if (comboBox.Items.Count > 0)
@@ -75,16 +75,16 @@ namespace DB_GUI
             }
         }
 
-        private void getDataIntoLV()
+        private void GetDataIntoLV()
         {
             lv.Columns.Clear();
             lv.Items.Clear();
 
-            foreach (string listItem in linker.getColumnsName(comboBox.SelectedItem.ToString()))
+            foreach (string listItem in linker.GetColumnsName(comboBox.SelectedItem.ToString()))
             {     
                 lv.Columns.Add(listItem, -2, HorizontalAlignment.Left);
             }
-            foreach (string[] item in linker.getData(comboBox.SelectedItem.ToString()))
+            foreach (string[] item in linker.GetData(comboBox.SelectedItem.ToString()))
             {
                 lv.Items.Add(new ListViewItem(item));
             }
@@ -99,24 +99,18 @@ namespace DB_GUI
             //lv.Columns.Count.ToString();
         }
 
-        private void connectButton_Click(object sender, EventArgs e)
-        {
-            getDataFromDb();
-        }
+        private void ConnectButton_Click(object sender, EventArgs e) => GetDataFromDb();
 
-        private void comboBox_SelectedIndexChange(object sender, EventArgs e)
+        private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             linker.Open();
-            getDataIntoLV();
+            GetDataIntoLV();
             linker.Close();
         }
 
-        private void ConnectButton_Click(object sender, EventArgs e)
-        {
-            getDataFromDb();
-        }
+        private void connectButton_Click(object sender, EventArgs e) => GetDataFromDb();
 
-        private void ipTB_Enter(object sender, EventArgs e)
+        private void IpTB_Enter(object sender, EventArgs e)
         {
             if (ipTB.Text == "IP Address")
             {
@@ -125,7 +119,7 @@ namespace DB_GUI
             }
         }
 
-        private void ipTB_Leave(object sender, EventArgs e)
+        private void IpTB_Leave(object sender, EventArgs e)
         {
             if (ipTB.Text == "")
             {
@@ -134,7 +128,7 @@ namespace DB_GUI
             }
         }
 
-        private void portTB_Enter(object sender, EventArgs e)
+        private void PortTB_Enter(object sender, EventArgs e)
         {
             if (portTB.Text == "Port number")
             {
@@ -143,7 +137,7 @@ namespace DB_GUI
             }
         }
 
-        private void portTB_Leave(object sender, EventArgs e)
+        private void PortTB_Leave(object sender, EventArgs e)
         {
             if (portTB.Text == "")
             {
@@ -152,7 +146,7 @@ namespace DB_GUI
             }
         }
 
-        private void usernameTB_Enter(object sender, EventArgs e)
+        private void UsernameTB_Enter(object sender, EventArgs e)
         {
             if (usernameTB.Text == "Username")
             {
@@ -161,7 +155,7 @@ namespace DB_GUI
             }
         }
 
-        private void usernameTB_Leave(object sender, EventArgs e)
+        private void UsernameTB_Leave(object sender, EventArgs e)
         {
             if (usernameTB.Text == "")
             {
@@ -170,7 +164,7 @@ namespace DB_GUI
             }
         }
 
-        private void pwTB_Enter(object sender, EventArgs e)
+        private void PwTB_Enter(object sender, EventArgs e)
         {
             if (pwTB.Text == "password")
             {
@@ -179,16 +173,13 @@ namespace DB_GUI
             }
         }
 
-        private void pwTB_Leave(object sender, EventArgs e)
+        private void PwTB_Leave(object sender, EventArgs e)
         {    
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            pwTB.Text = "password";
-        }
+        private void Form1_Load(object sender, EventArgs e) => pwTB.Text = "password";
 
-        private void dbTB_Enter(object sender, EventArgs e)
+        private void DbTB_Enter(object sender, EventArgs e)
         {
             if (dbTB.Text == "DB Name")
             {
@@ -197,7 +188,7 @@ namespace DB_GUI
             }
         }
 
-        private void dbTB_Leave(object sender, EventArgs e)
+        private void DbTB_Leave(object sender, EventArgs e)
         {
             if (dbTB.Text == "")
             {

@@ -45,13 +45,13 @@
             // 
             // lv
             // 
-            this.lv.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.lv.BackColor = System.Drawing.SystemColors.Window;
             this.lv.Location = new System.Drawing.Point(106, 124);
             this.lv.Name = "lv";
             this.lv.Size = new System.Drawing.Size(347, 227);
             this.lv.TabIndex = 0;
             this.lv.UseCompatibleStateImageBehavior = false;
-            this.lv.SelectedIndexChanged += new System.EventHandler(this.lv_SelectedIndexChanged);
+            this.lv.SelectedIndexChanged += new System.EventHandler(this.Lv_SelectedIndexChanged);
             // 
             // comboBox
             // 
@@ -100,7 +100,7 @@
             this.connectButton.TabIndex = 7;
             this.connectButton.Text = "Connect";
             this.connectButton.UseVisualStyleBackColor = false;
-            this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
+            this.connectButton.Click += new System.EventHandler(this.ConnectButton_Click);
             // 
             // editButton
             // 
@@ -113,53 +113,53 @@
             // 
             // ipTB
             // 
-            this.ipTB.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.ipTB.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ipTB.Location = new System.Drawing.Point(109, 36);
             this.ipTB.Name = "ipTB";
             this.ipTB.Size = new System.Drawing.Size(100, 20);
             this.ipTB.TabIndex = 9;
-            this.ipTB.Enter += new System.EventHandler(this.ipTB_Enter);
-            this.ipTB.Leave += new System.EventHandler(this.ipTB_Leave);
+            this.ipTB.Enter += new System.EventHandler(this.IpTB_Enter);
+            this.ipTB.Leave += new System.EventHandler(this.IpTB_Leave);
             // 
             // portTB
             // 
-            this.portTB.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.portTB.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.portTB.Location = new System.Drawing.Point(109, 62);
             this.portTB.Name = "portTB";
             this.portTB.Size = new System.Drawing.Size(100, 20);
             this.portTB.TabIndex = 10;
-            this.portTB.Enter += new System.EventHandler(this.portTB_Enter);
-            this.portTB.Leave += new System.EventHandler(this.portTB_Leave);
+            this.portTB.Enter += new System.EventHandler(this.PortTB_Enter);
+            this.portTB.Leave += new System.EventHandler(this.PortTB_Leave);
             // 
             // usernameTB
             // 
-            this.usernameTB.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.usernameTB.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.usernameTB.Location = new System.Drawing.Point(215, 36);
             this.usernameTB.Name = "usernameTB";
             this.usernameTB.Size = new System.Drawing.Size(100, 20);
             this.usernameTB.TabIndex = 11;
-            this.usernameTB.Enter += new System.EventHandler(this.usernameTB_Enter);
-            this.usernameTB.Leave += new System.EventHandler(this.usernameTB_Leave);
+            this.usernameTB.Enter += new System.EventHandler(this.UsernameTB_Enter);
+            this.usernameTB.Leave += new System.EventHandler(this.UsernameTB_Leave);
             // 
             // pwTB
             // 
-            this.pwTB.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.pwTB.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.pwTB.Location = new System.Drawing.Point(215, 62);
             this.pwTB.Name = "pwTB";
             this.pwTB.Size = new System.Drawing.Size(100, 20);
             this.pwTB.TabIndex = 12;
-            this.pwTB.Enter += new System.EventHandler(this.pwTB_Enter);
-            this.pwTB.Leave += new System.EventHandler(this.pwTB_Leave);
+            this.pwTB.Enter += new System.EventHandler(this.PwTB_Enter);
+            this.pwTB.Leave += new System.EventHandler(this.PwTB_Leave);
             // 
             // dbTB
             // 
-            this.dbTB.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.dbTB.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dbTB.Location = new System.Drawing.Point(321, 36);
             this.dbTB.Name = "dbTB";
             this.dbTB.Size = new System.Drawing.Size(100, 20);
             this.dbTB.TabIndex = 14;
-            this.dbTB.Enter += new System.EventHandler(this.dbTB_Enter);
-            this.dbTB.Leave += new System.EventHandler(this.dbTB_Leave);
+            this.dbTB.Enter += new System.EventHandler(this.DbTB_Enter);
+            this.dbTB.Leave += new System.EventHandler(this.DbTB_Leave);
             // 
             // label1
             // 
@@ -174,7 +174,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ClientSize = new System.Drawing.Size(800, 445);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dbTB);
             this.Controls.Add(this.pwTB);

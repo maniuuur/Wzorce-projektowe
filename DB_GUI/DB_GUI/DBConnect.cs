@@ -22,36 +22,45 @@ namespace DB_GUI
         MySqlConnection databaseConnection;
         MySqlCommand commandDatabase;
         MySqlDataReader reader;
-
-        public void setData(string ipBox, string portBox, string userBox, string pwBox, string dbBox)
+        
+        public void SetData(string ipBox, string portBox, string userBox, string pwBox, string dbBox)
         {
-            this.ip = ipBox;
-            this.port = portBox;
-            this.username = userBox;
-            this.password = pwBox;
-            this.datebase = dbBox;
+            try
+            {
+                this.ip = ipBox;
+                this.port = portBox;
+                this.username = userBox;
+                this.password = pwBox;
+                this.datebase = dbBox;
 
-            string connectionString = "datasource=" + this.ip + ";port=" + this.port + ";username=" + this.username +
-                                      ";password=" + this.password + ";database=" + this.datebase + ";"
-                                      ;
-            this.databaseConnection = new MySqlConnection(connectionString);
+                string connectionString = "datasource=" + this.ip + ";port=" + this.port + ";username=" + this.username +
+                                          ";password=" + this.password + ";database=" + this.datebase + ";"
+                                          ;
+                this.databaseConnection = new MySqlConnection(connectionString);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
-        public List<string> getColumnsName(string selectedTable)
+        public List<string> GetColumnsName(string selectedTable)
         {
-            List<string> lista = new List<string>();
-            List<string> listaTypow = new List<string>();
+            List<string> list = new List<string>();
+            List<string> listOfTypes = new List<string>();
             string query = "SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '" + datebase + "' AND TABLE_NAME = '" + selectedTable + "';";
-            this.commandDatabase = new MySqlCommand(query, this.databaseConnection);
-            this.commandDatabase.CommandTimeout = 60;
+            this.commandDatabase = new MySqlCommand(query, this.databaseConnection)
+            {
+                CommandTimeout = 60
+            };
             this.reader = commandDatabase.ExecuteReader();
 
             if (this.reader.HasRows)
             {
                 while (this.reader.Read())
                 {
-                    lista.Add(this.reader.GetString(0));
-                    listaTypow.Add(this.reader.GetString(1));
+                    list.Add(this.reader.GetString(0));
+                    listOfTypes.Add(this.reader.GetString(1));
                 }
             }
             else
@@ -59,16 +68,16 @@ namespace DB_GUI
                 MessageBox.Show("Brak kolumn w danej tabeli");
             }
             this.reader.Close();
-            this.ColumnsName = lista.ToArray();
-            this.ColumnsTypes = listaTypow.ToArray();
-            return lista;
+            this.ColumnsName = list.ToArray();
+            this.ColumnsTypes = listOfTypes.ToArray();
+            return list;
         }
 
-        public List<string> getTableNames()
+        public List<string> GetTables()
         {
-            List<string> lista = new List<string>();
+            List<string> list = new List<string>();
             string query = "SELECT table_name FROM information_schema.tables where table_schema = '" + this.datebase + "'";
-            this.commandDatabase = new MySqlCommand(query, this.databaseConnection);
+            commandDatabase = new MySqlCommand(query, databaseConnection);
             this.commandDatabase.CommandTimeout = 60;
             this.reader = commandDatabase.ExecuteReader();
 
@@ -76,7 +85,7 @@ namespace DB_GUI
             {
                 while (this.reader.Read())
                 {
-                    lista.Add(this.reader.GetString(0));
+                    list.Add(this.reader.GetString(0));
                 }
             }
             else
@@ -84,15 +93,16 @@ namespace DB_GUI
                 MessageBox.Show("Brak tabel w danej bazie");
             }
             this.reader.Close();
-            return lista;
+            return list;
         }
 
-        public List<string[]> getData(string selectedTable)
+        public List<string[]> GetData(string selectedTable)
         {
-            List<string[]> lista = new List<string[]>();
+            List<string[]> list = new List<string[]>();
 
             string query = "SELECT * FROM " + selectedTable;
-            this.commandDatabase = new MySqlCommand(query, this.databaseConnection);
+            MySqlCommand mySqlCommand = new MySqlCommand(query, this.databaseConnection);
+            commandDatabase = mySqlCommand;
             this.commandDatabase.CommandTimeout = 60;
             this.reader = commandDatabase.ExecuteReader();
 
@@ -116,7 +126,7 @@ namespace DB_GUI
                                 break;
                         }
                     }
-                    lista.Add(row);
+                    list.Add(row);
                 }
             }
             else
@@ -124,7 +134,7 @@ namespace DB_GUI
                 MessageBox.Show("Brak danych w tabeli");
             }
             this.reader.Close();
-            return lista;
+            return list;
 
         }
 
@@ -140,11 +150,6 @@ namespace DB_GUI
             }
         }
 
-        public void Close()
-        {
-            this.databaseConnection.Close();
-        }
-
-       
+        public void Close() => this.databaseConnection.Close();
     }
 }
