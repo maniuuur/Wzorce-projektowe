@@ -41,6 +41,11 @@
             this.pwTB = new System.Windows.Forms.TextBox();
             this.dbTB = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lv
@@ -57,7 +62,7 @@
             // 
             this.dropdownList.BackColor = System.Drawing.SystemColors.ControlLight;
             this.dropdownList.FormattingEnabled = true;
-            this.dropdownList.Location = new System.Drawing.Point(459, 35);
+            this.dropdownList.Location = new System.Drawing.Point(459, 46);
             this.dropdownList.Name = "dropdownList";
             this.dropdownList.Size = new System.Drawing.Size(121, 21);
             this.dropdownList.TabIndex = 1;
@@ -71,6 +76,7 @@
             this.delButton.TabIndex = 3;
             this.delButton.Text = "Del";
             this.delButton.UseVisualStyleBackColor = true;
+            this.delButton.Click += new System.EventHandler(this.delButton_Click);
             // 
             // sortButton
             // 
@@ -89,13 +95,14 @@
             this.addButton.TabIndex = 6;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // connectButton
             // 
             this.connectButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.connectButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.connectButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.connectButton.Location = new System.Drawing.Point(321, 62);
+            this.connectButton.Location = new System.Drawing.Point(321, 86);
             this.connectButton.Name = "connectButton";
             this.connectButton.Size = new System.Drawing.Size(100, 20);
             this.connectButton.TabIndex = 7;
@@ -115,17 +122,18 @@
             // ipTB
             // 
             this.ipTB.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ipTB.Location = new System.Drawing.Point(109, 36);
+            this.ipTB.Location = new System.Drawing.Point(109, 47);
             this.ipTB.Name = "ipTB";
             this.ipTB.Size = new System.Drawing.Size(100, 20);
             this.ipTB.TabIndex = 9;
+            this.ipTB.TextChanged += new System.EventHandler(this.ipTB_TextChanged);
             this.ipTB.Enter += new System.EventHandler(this.IpTB_Enter);
             this.ipTB.Leave += new System.EventHandler(this.IpTB_Leave);
             // 
             // portTB
             // 
             this.portTB.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.portTB.Location = new System.Drawing.Point(109, 62);
+            this.portTB.Location = new System.Drawing.Point(109, 86);
             this.portTB.Name = "portTB";
             this.portTB.Size = new System.Drawing.Size(100, 20);
             this.portTB.TabIndex = 10;
@@ -135,7 +143,7 @@
             // usernameTB
             // 
             this.usernameTB.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.usernameTB.Location = new System.Drawing.Point(215, 36);
+            this.usernameTB.Location = new System.Drawing.Point(215, 47);
             this.usernameTB.Name = "usernameTB";
             this.usernameTB.Size = new System.Drawing.Size(100, 20);
             this.usernameTB.TabIndex = 11;
@@ -145,7 +153,7 @@
             // pwTB
             // 
             this.pwTB.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.pwTB.Location = new System.Drawing.Point(215, 62);
+            this.pwTB.Location = new System.Drawing.Point(215, 86);
             this.pwTB.Name = "pwTB";
             this.pwTB.Size = new System.Drawing.Size(100, 20);
             this.pwTB.TabIndex = 12;
@@ -155,7 +163,7 @@
             // dbTB
             // 
             this.dbTB.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dbTB.Location = new System.Drawing.Point(321, 36);
+            this.dbTB.Location = new System.Drawing.Point(321, 47);
             this.dbTB.Name = "dbTB";
             this.dbTB.Size = new System.Drawing.Size(100, 20);
             this.dbTB.TabIndex = 14;
@@ -165,11 +173,56 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(106, 9);
+            this.label1.Location = new System.Drawing.Point(103, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 13);
             this.label1.TabIndex = 15;
             this.label1.Text = "Enter data here:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(106, 70);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(26, 13);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Port";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(106, 31);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(17, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "IP";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(212, 70);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(53, 13);
+            this.label4.TabIndex = 18;
+            this.label4.Text = "Password";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(212, 31);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 13);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "Username";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(318, 31);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(53, 13);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "Database";
             // 
             // Form1
             // 
@@ -177,6 +230,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(800, 445);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dbTB);
             this.Controls.Add(this.pwTB);
@@ -211,9 +269,13 @@
         private System.Windows.Forms.TextBox portTB;
         private System.Windows.Forms.TextBox usernameTB;
         private System.Windows.Forms.TextBox pwTB;
-        private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox dbTB;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }
 

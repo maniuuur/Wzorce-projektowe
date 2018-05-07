@@ -22,7 +22,7 @@ namespace DB_GUI
             ipTB.Text = "127.0.0.1";
             portTB.Text = "3306";
             usernameTB.Text = "root";
-            dbTB.Text = "test";
+            dbTB.Text = "db_project";
 
             dropdownList.DropDownStyle = ComboBoxStyle.DropDownList;
             lv.View = View.Details;
@@ -32,7 +32,7 @@ namespace DB_GUI
             addButton.Enabled = false;
             delButton.Enabled = false;
             editButton.Enabled = false;
-            sortButton.Enabled = false;
+ 
         }
 
         private void Lv_SelectedIndexChanged(object sender, EventArgs e)
@@ -67,7 +67,10 @@ namespace DB_GUI
                 linker.Close();
 
                 if (dropdownList.Items.Count > 0)
+                {
                     dropdownList.SelectedIndex = 0;
+                    addButton.Enabled = true;
+                }
             }
             catch (Exception ex)
             {
@@ -92,11 +95,58 @@ namespace DB_GUI
             lv.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             lv.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
-        }
+        } 
 
         private void add()
         {
-            //lv.Columns.Count.ToString();
+            try
+            {
+                Form2 secondForm = new Form2("addMod");
+                string query = "INSERT INTO `" + dropdownList.SelectedItem.ToString() + "` VALUES(";
+                for (int i = 0; i < linker.ColumnsTypes.Length; i++)
+                {
+                    secondForm.Set(typeOfValue: linker.ColumnsTypes[i], defaultValue: "");
+                    secondForm.ShowDialog();
+                    query += "'" + secondForm.tempValue + "',";
+                }
+                query = query.Remove(query.Length - 1);
+                query += ")";
+                linker.Open();
+                linker.DoQuery(query);
+                GetDataIntoLV();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                linker.Close();
+            }
+        }
+
+        private void delete()
+        {
+            try
+            {
+                linker.Open();
+                string query;
+                foreach (ListViewItem row in lv.SelectedItems)
+                {
+                    query = "DELETE FROM " + dropdownList.SelectedItem.ToString() +
+                                   " WHERE " + lv.Columns[0].Text + "=" + row.SubItems[0].Text;
+                    linker.DoQuery(query);
+                }
+                GetDataIntoLV();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                linker.Close();
+            }
         }
 
         private void ConnectButton_Click(object sender, EventArgs e) => GetDataFromDb();
@@ -195,6 +245,18 @@ namespace DB_GUI
             linker.Open();
             GetDataIntoLV();
             linker.Close();
+        }
+
+        private void ipTB_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void delButton_Click(object sender, EventArgs e) => delete();
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            add();
         }
     }
 }

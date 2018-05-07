@@ -17,7 +17,7 @@ namespace DB_GUI
         private string datebase;
 
         private string[] ColumnsName;
-        private string[] ColumnsTypes;
+        public string[] ColumnsTypes;
 
         MySqlConnection databaseConnection;
         MySqlCommand commandDatabase;
@@ -67,9 +67,10 @@ namespace DB_GUI
             {
                 MessageBox.Show("Brak kolumn w danej tabeli");
             }
+
             this.reader.Close();
             this.ColumnsName = list.ToArray();
-            this.ColumnsTypes = listOfTypes.ToArray();
+            ColumnsTypes = listOfTypes.ToArray();
             return list;
         }
 
@@ -136,6 +137,14 @@ namespace DB_GUI
             this.reader.Close();
             return list;
 
+        }
+
+        public void DoQuery(string query)
+        {
+            using (MySqlCommand commandDatabase = new MySqlCommand(query, this.databaseConnection))
+            {
+                commandDatabase.ExecuteNonQuery();
+            }
         }
 
         public void Open()
