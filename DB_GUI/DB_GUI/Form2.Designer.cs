@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.confirmButton = new System.Windows.Forms.Button();
+            this.confButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -43,15 +43,15 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Dodawanie obiektów do tabeli";
             // 
-            // confirmButton
+            // confButton
             // 
-            this.confirmButton.Location = new System.Drawing.Point(111, 77);
-            this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(75, 23);
-            this.confirmButton.TabIndex = 1;
-            this.confirmButton.Text = "Confirm";
-            this.confirmButton.UseVisualStyleBackColor = true;
-            this.confirmButton.Click += new System.EventHandler(this.confirmButton_Click);
+            this.confButton.Location = new System.Drawing.Point(111, 77);
+            this.confButton.Name = "confButton";
+            this.confButton.Size = new System.Drawing.Size(75, 23);
+            this.confButton.TabIndex = 1;
+            this.confButton.Text = "Confirm";
+            this.confButton.UseVisualStyleBackColor = true;
+            this.confButton.Click += new System.EventHandler(this.confButton_Click);
             // 
             // cancelButton
             // 
@@ -77,7 +77,7 @@
             this.ClientSize = new System.Drawing.Size(376, 167);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.cancelButton);
-            this.Controls.Add(this.confirmButton);
+            this.Controls.Add(this.confButton);
             this.Controls.Add(this.label1);
             this.Name = "Form2";
             this.Text = "Form2";
@@ -89,7 +89,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button confirmButton;
+        private System.Windows.Forms.Button confButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.TextBox textBox1;
     }

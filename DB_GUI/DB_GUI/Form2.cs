@@ -54,7 +54,7 @@ namespace DB_GUI
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            throw new Exception("Anulowanio");
+            throw new Exception("Anulowano");
         }
     }
 }
