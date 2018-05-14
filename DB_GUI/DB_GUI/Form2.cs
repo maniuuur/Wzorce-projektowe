@@ -10,50 +10,40 @@ using System.Windows.Forms;
 
 namespace DB_GUI
 {
-    public partial class Form2 : Form
-    {
-        private string typeOfValue;
-        public string tempValue;
+    public partial class Form2 : Form{
+        private string type;
+        public string temp;
 
-        public Form2(string typeOfForm)
-        {
+        public Form2(string typeOfForm){
             InitializeComponent();
 
-            if (typeOfForm == "addMode")
-            {
+            if (typeOfForm == "dodawanie"){
                 label1.Text = "Dodawanie obiektów do tabeli ";
             }
-
         }     
 
-        public void Set(string typeOfValue, string defaultValue)
-        {
-            this.typeOfValue = typeOfValue;
+        public void Set(string type, string defaultValue){
+            this.type = type;
             textBox1.Text = defaultValue;
-            tempValue = "";
+            temp = "";
         }
 
-        private void conf()
-        {
-            tempValue = textBox1.Text;
+        private void conf(){
+            temp = textBox1.Text;
             this.Hide();
         }
 
-        private void valueTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (int)Keys.Enter)
-            {
+        private void valueTextBox_KeyPress(object sender, KeyPressEventArgs e){
+            if (e.KeyChar == (int)Keys.Enter){
                 conf();
             }
         }
 
-        private void confButton_Click(object sender, EventArgs e)
-        {
+        private void confButton_Click(object sender, EventArgs e){
             conf();
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
-        {
+        private void cancelButton_Click(object sender, EventArgs e){
             throw new Exception("Anulowano");
         }
     }
