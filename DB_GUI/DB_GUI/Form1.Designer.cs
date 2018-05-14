@@ -56,6 +56,7 @@
             this.lv.Size = new System.Drawing.Size(347, 227);
             this.lv.TabIndex = 0;
             this.lv.UseCompatibleStateImageBehavior = false;
+            this.lv.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lv_ColumnClick);
             this.lv.SelectedIndexChanged += new System.EventHandler(this.Lv_SelectedIndexChanged);
             // 
             // dropdownList

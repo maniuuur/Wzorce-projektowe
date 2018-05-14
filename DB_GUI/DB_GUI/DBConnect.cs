@@ -16,8 +16,8 @@ namespace DB_GUI
         private string password;
         private string datebase;
 
-        private string[] ColumnsName;
-        public string[] ColumnsTypes;
+        private string[] ColumnNames;
+        public string[] ColumnTypes;
 
         MySqlConnection databaseConnection;
         MySqlCommand commandDatabase;
@@ -41,7 +41,7 @@ namespace DB_GUI
             }
         }
 
-        public List<string> GetColumnsName(string selectedTable){
+        public List<string> GetColumnNames(string selectedTable){
             List<string> list = new List<string>();
             List<string> listOfTypes = new List<string>();
             string query = "SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '" + datebase + "' AND TABLE_NAME = '" + selectedTable + "';";
@@ -61,8 +61,8 @@ namespace DB_GUI
             }
 
             this.reader.Close();
-            this.ColumnsName = list.ToArray();
-            ColumnsTypes = listOfTypes.ToArray();
+            this.ColumnNames = list.ToArray();
+            ColumnTypes = listOfTypes.ToArray();
             return list;
         }
 
@@ -96,9 +96,9 @@ namespace DB_GUI
 
             if (this.reader.HasRows){
                 while (this.reader.Read()){
-                    string[] row = new string[this.ColumnsTypes.Length];
-                    for (int i = 0; i < this.ColumnsTypes.Length; i++){
-                        switch (this.ColumnsTypes[i]){
+                    string[] row = new string[this.ColumnTypes.Length];
+                    for (int i = 0; i < this.ColumnTypes.Length; i++){
+                        switch (this.ColumnTypes[i]){
                             case "int":
                                 row[i] = reader.GetInt32(i).ToString();
                                 break;

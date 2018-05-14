@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Collections;
 
 namespace DB_GUI
 {
     public partial class Form1 : Form{
+
         DBconnect linker = new DBconnect();
+        private int sortColumn = -1;
 
         public Form1(){
             InitializeComponent();
@@ -30,7 +33,8 @@ namespace DB_GUI
             addButton.Enabled = false;
             delButton.Enabled = false;
             editButton.Enabled = false;
- 
+            sortButton.Enabled = false;
+
         }
 
         private void Lv_SelectedIndexChanged(object sender, EventArgs e){
@@ -71,7 +75,7 @@ namespace DB_GUI
             lv.Columns.Clear();
             lv.Items.Clear();
 
-            foreach (string listItem in linker.GetColumnsName(dropdownList.SelectedItem.ToString())){     
+            foreach (string listItem in linker.GetColumnNames(dropdownList.SelectedItem.ToString())){     
                 lv.Columns.Add(listItem, -2, HorizontalAlignment.Left);
             }
             foreach (string[] item in linker.GetData(dropdownList.SelectedItem.ToString())){
@@ -87,8 +91,8 @@ namespace DB_GUI
             try{
                 Form2 f2 = new Form2("dodawanie");
                 string query = "INSERT INTO `" + dropdownList.SelectedItem.ToString() + "` VALUES(";
-                for (int i = 0; i < linker.ColumnsTypes.Length; i++){
-                    f2.Set(type: linker.ColumnsTypes[i], defaultValue: "");
+                for (int i = 0; i < linker.ColumnTypes.Length; i++){
+                    f2.Set(type: linker.ColumnTypes[i], defaultValue: "");
                     f2.ShowDialog();
                     query += "'" + f2.temp + "',";
                 }
@@ -111,9 +115,9 @@ namespace DB_GUI
                 Form2 f2 = new Form2("edytowanie");
                 f2.StartPosition = FormStartPosition.CenterParent;
                 string query = "UPDATE `" + dropdownList.SelectedItem.ToString() + "` SET";
-                for (int i = 0; i < linker.ColumnsTypes.Length; i++)
+                for (int i = 0; i < linker.ColumnTypes.Length; i++)
                 {
-                    f2.Set(linker.ColumnsTypes[i], lv.SelectedItems[0].SubItems[i].Text);
+                    f2.Set(linker.ColumnTypes[i], lv.SelectedItems[0].SubItems[i].Text);
                     f2.ShowDialog();
                     query += " `" + lv.Columns[i].Text + "`='" + f2.temp + "',";
                 }
@@ -235,5 +239,53 @@ namespace DB_GUI
         private void delButton_Click(object sender, EventArgs e) => delete();
         private void addButton_Click(object sender, EventArgs e) => add();
         private void editButton_Click(object sender, EventArgs e) => edit();
+
+        private void lv_ColumnClick(object sender, ColumnClickEventArgs aktualna){
+            if (aktualna.Column != sortColumn){
+
+                sortColumn = aktualna.Column;
+                lv.Sorting = SortOrder.Ascending;
+            }
+            else{
+
+                if (lv.Sorting == SortOrder.Ascending)
+                    lv.Sorting = SortOrder.Descending;
+                else
+                    lv.Sorting = SortOrder.Ascending;
+            }
+            this.lv.ListViewItemSorter = new LvItemComparer(aktualna.Column, lv.Sorting);
+        }
+
+        public class LvItemComparer : IComparer {
+
+            private int kolumna;
+            private SortOrder porzadek;
+
+            public LvItemComparer(){
+
+                kolumna = 0;
+                porzadek = SortOrder.Ascending; // rosnaco
+
+            }
+
+            public LvItemComparer(int kolumna, SortOrder porzadek){
+                LvItemComparer lvItemComparer = this;
+                lvItemComparer.kolumna = kolumna;
+                lvItemComparer.porzadek = porzadek;
+                }
+
+            public int Compare( object a, object b){
+
+                int returnValue = -1;
+                returnValue = string.Compare(((ListViewItem)a).SubItems[kolumna].Text, ((ListViewItem)b).SubItems[kolumna].Text);
+
+                if (porzadek == SortOrder.Descending)
+                {
+                    returnValue *= -1;
+                }
+
+                return returnValue;
+            }
+        }
     }
 }
