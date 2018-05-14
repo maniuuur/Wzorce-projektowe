@@ -227,9 +227,19 @@ namespace DB_GUI
         }
 
         private void dropdownList_SelectedIndexChanged(object sender, EventArgs e){
-            linker.Open();
-            GetDataIntoLV();
-            linker.Close();
+
+            try
+            {
+                linker.Open();
+                GetDataIntoLV();
+            }
+            catch (Exception ex){
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                linker.Close();
+            }
         }
 
         private void ipTB_TextChanged(object sender, EventArgs e)

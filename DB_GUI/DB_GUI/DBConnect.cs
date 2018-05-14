@@ -98,17 +98,7 @@ namespace DB_GUI
                 while (this.reader.Read()){
                     string[] row = new string[this.ColumnTypes.Length];
                     for (int i = 0; i < this.ColumnTypes.Length; i++){
-                        switch (this.ColumnTypes[i]){
-                            case "int":
-                                row[i] = reader.GetInt32(i).ToString();
-                                break;
-                            case "varchar":
-                                row[i] = reader.GetString(i);
-                                break;
-                            case "boolean":
-                                row[i] = reader.GetBoolean(i).ToString();
-                                break;
-                        }
+                        row[i] = reader.GetValue(i).ToString();
                     }
                     list.Add(row);
                 }
