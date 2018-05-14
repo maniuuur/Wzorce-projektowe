@@ -1,5 +1,5 @@
 Aplikacja została napisana w języku C# przy pomocy Visual Studio 2017 Community z dodatkiem MySQL Connector Net.
-Przy pomocy aplikacji można połączyć się z każdą bazą danych MySQL,z której pobrane zostają tablice i rekordy. 
+Przy pomocy aplikacji można połączyć się z każdą bazą danych MySQL, z której pobrane zostają tablice i rekordy. 
 Aplikacja umożliwia dodawanie, edytowanie oraz usuwanie rekordów.
 
 Działanie aplikacji
