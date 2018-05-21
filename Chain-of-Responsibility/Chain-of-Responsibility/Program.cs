@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace Chain_of_Responsibility
 {
     class MainApp
-
     {
         static void Main()
         {
@@ -18,7 +17,7 @@ namespace Chain_of_Responsibility
             h1.SetSuccessor(h2);
             h2.SetSuccessor(h3);
 
-            int[] requests = { 2, 5, 14, 22, 18, 3, 27, 20 };
+            int[] requests = { 3, 17, 8, 25, 1, 16, 22, 10 };
 
             foreach (int request in requests)
             {
@@ -48,7 +47,7 @@ namespace Chain_of_Responsibility
         {
             if (request >= 0 && request < 10)
             {
-                Console.WriteLine("{0} handled request {1}",
+                Console.WriteLine("{0} handled request {1}\n",
                   this.GetType().Name, request);
             }
 
@@ -65,7 +64,7 @@ namespace Chain_of_Responsibility
         {
             if (request >= 10 && request < 20)
             {
-                Console.WriteLine("{0} handled request {1}",
+                Console.WriteLine("{0} handled request {1}\n",
                   this.GetType().Name, request);
             }
 
@@ -82,7 +81,7 @@ namespace Chain_of_Responsibility
         {
             if (request >= 20 && request < 30)
             {
-                Console.WriteLine("{0} handled request {1}",
+                Console.WriteLine("{0} handled request {1}\n",
                   this.GetType().Name, request);
             }
 
